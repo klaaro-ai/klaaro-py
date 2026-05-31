@@ -23,6 +23,8 @@ test = [
 
 [project.urls]
 Homepage = "https://klaaro.ai"
+Repository = "https://github.com/klaaro-ai/klaaro-py"
+Issues = "https://github.com/klaaro-ai/klaaro-py/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/klaaro"]
