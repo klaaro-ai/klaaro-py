@@ -92,6 +92,7 @@ Params: `limit: int | None` (1–200, default 50), `cursor: str | None`
 | `upload_document(dataset_id, *, file, filename, url, fixed_class, idempotency_key, replace_document_id)` | POST | `/documents` | file XOR url | `Document` (201) |
 | `get_document(document_id)` | GET | `/documents/{id}` | — | `Document` |
 | `delete_document(document_id)` | DELETE | `/documents/{id}` | — | `None` (204) |
+| `rerun_document(document_id, *, from_step, fixed_class)` | POST | `/documents/{id}/rerun` | — | `Document` |
 | `get_document_records(document_id, *, include_unapproved)` | GET | `/documents/{id}/records` | — | `DocumentRecordsResponse` |
 | `get_document_records_flat(document_id, *, include_unapproved)` | GET | `/documents/{id}/records-flat` | — | `DocumentRecordsFlatResponse` |
 | `get_document_records_nested(document_id, *, include_unapproved)` | GET | `/documents/{id}/records-nested` | — | `DocumentRecordsNestedResponse` |

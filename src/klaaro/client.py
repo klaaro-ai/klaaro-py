@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
-from typing import IO, Any, Optional
+from typing import IO, Any, Literal, Optional
 
 import httpx
 
@@ -326,6 +326,22 @@ class KlaaroClient:
 
     def delete_document(self, document_id: str) -> None:
         self._request("DELETE", f"/documents/{document_id}")
+
+    def rerun_document(
+        self,
+        document_id: str,
+        *,
+        from_step: Optional[Literal["ocr", "classify", "defineClass", "extract"]] = None,
+        fixed_class: Optional[str] = None,
+    ) -> Document:
+        """Re-trigger pipeline processing for an existing document."""
+        body: dict[str, str] = {}
+        if from_step is not None:
+            body["fromStep"] = from_step
+        if fixed_class is not None:
+            body["fixedClass"] = fixed_class
+        payload = self._request("POST", f"/documents/{document_id}/rerun", json=body)
+        return Document.model_validate(payload)
 
     def get_document_records(
         self,

@@ -82,6 +82,7 @@ class Class(BaseModel):
 # ---------------------------------------------------------------------------
 
 DocumentStatus = Literal["queued", "processing", "completed", "failed", "cancelled"]
+RerunFromStep = Literal["ocr", "classify", "defineClass", "extract"]
 
 
 class DocumentClassRef(BaseModel):
