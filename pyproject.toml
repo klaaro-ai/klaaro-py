@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "klaaro"
-version = "0.1.0"
+version = "0.1.1"
 description = "Official Python SDK for the Klaaro API"
 readme = "README.md"
 license = { text = "MIT" }

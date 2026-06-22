@@ -1,0 +1,50 @@
+# Publishes klaaro to PyPI with provenance on version tag push.
+#
+# One-time PyPI setup (OIDC Trusted Publishing — no long-lived token):
+# 1. Log in to pypi.org → klaaro → Publishing
+# 2. Add a new pending publisher → GitHub
+# 3. Repository owner: klaaro-ai
+# 4. Repository name: klaaro-py
+# 5. Workflow filename: publish.yml
+# 6. Environment name: (leave blank)
+#
+# Fallback: set PYPI_API_TOKEN in repo Actions secrets and add
+#   with:
+#     password: ${{ secrets.PYPI_API_TOKEN }}
+# to the Publish step below.
+
+name: Publish
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+jobs:
+  publish:
+    name: Publish to PyPI
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -e ".[test]" build
+
+      - name: Test
+        run: pytest
+
+      - name: Build
+        run: python -m build
+
+      - name: Publish
+        uses: pypa/gh-action-pypi-publish@release/v1
